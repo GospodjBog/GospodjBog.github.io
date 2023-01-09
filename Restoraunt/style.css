@@ -645,4 +645,7 @@ button {
   .container {
     margin: auto 40px;
   }
+  .cook-content img {
+    width: 255px;
+  }
 }
