@@ -1,15 +1,49 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
-    <meta charset="utf-8" />
-    <link href="styles/style.css" rel="stylesheet" type="text/css" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <title>Git hub io site</title>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>javascript learn</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="script.js" defer></script>
   </head>
-  <body style="text-align: center; font-size: 4em">
-    <h1>Привет, это <strong>главная</strong> страница сайта</h1>
-    <a href="index2.html">Страница #2</a>
-    <a href="Restoraunt/index-rest.html">Ресторан</a>
+  <body>
+    <div class="header"><h1>Создание частей сайта на JS</h1></div>
+    <div class="label">
+      <span>Фон:</span>
+      <select name="color" id="colorSelect">
+        <option value="white">Белый</option>
+        <option value="yellow">Желтый</option>
+        <option value="black">Черный</option>
+        <option value="pink">Розовый</option>
+        <option value="red">Красный</option>
+      </select>
+    </div>
+    <div class="label">
+      <span>Тег:</span>
+      <input type="text" id="inpSet" />
+    </div>
+    <div class="label">
+      <span>Текст:</span>
+      <input type="text" id="inpWrite" />
+    </div>
+    <div class="label">
+      <button id="btnWrite">Создать</button>
+    </div>
+    <div class="label">
+      <span>ID:</span>
+      <input type="text" id="inpDel" />
+    </div>
+    <!-- <div class="label">
+      <span>ID:</span>
+      <select name="color" id="idDelSelect">
+        <option value="#">Выберите</option>
+      </select>
+    </div> -->
+    <div class="label">
+      <button id="btnDel">Удалить</button>
+    </div>
+    <!-- <div class="btn-remove"></div> -->
   </body>
 </html>
