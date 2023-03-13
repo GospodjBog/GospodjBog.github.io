@@ -1,0 +1,330 @@
+body {
+  background-image: url(images/bg2.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+  margin: 0 5vw;
+}
+a {
+  text-decoration: none;
+  color: black;
+  /* text-shadow: 5px 2px 5px; */
+}
+a:hover {
+  color: rgb(0, 255, 251);
+  transition: 0.5s color ease;
+}
+/* Header */
+
+.title {
+  font-family: Ubuntu;
+  font-size: 8vw;
+  font-weight: 700;
+  text-decoration: underline;
+  text-align: center;
+}
+
+.t1,
+.t2,
+.t3,
+.t4,
+.t5 {
+  text-decoration: underline;
+}
+.t1 {
+  color: #0047b1;
+}
+.t2 {
+  color: #00b132;
+}
+.t3 {
+  color: #b10b00;
+}
+.t4 {
+  color: #aeb100;
+}
+.t5 {
+  color: #b1008a;
+}
+
+.header-logo {
+  position: fixed;
+  top: 20px;
+  left: 10px;
+}
+.header-logo img {
+  width: 50px;
+}
+
+.header-logo {
+  animation: 4s linear 0s infinite rise;
+  /* 4s linear 0s infinite alternate bounce; */
+}
+@keyframes rise {
+  from {
+    transform: rotate(0);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* @keyframes bounce {
+  from {
+    transform: translateX(0vw);
+  }
+  to {
+    transform: translateX(100vw);
+  }
+} */
+
+/* Navigation */
+nav > ul {
+  display: flex;
+  list-style-type: none;
+  justify-content: center;
+  padding: 0;
+}
+
+nav > ul > li {
+  margin-left: 4vw;
+  font-family: Ubuntu;
+  font-size: 3vw;
+  font-weight: 400;
+}
+
+nav > ul > li:first-child {
+  margin-left: 0vw;
+}
+
+/* Main */
+.main {
+  margin-top: 66px;
+}
+
+/* Index */
+
+/* Images section */
+.img-block {
+  display: flex;
+  justify-content: space-between;
+  gap: 1vw;
+}
+.img-block img {
+  width: 43vw;
+  border-radius: 33px;
+}
+
+/* Text section */
+.text-block {
+  padding: 10px;
+  color: white;
+}
+h2 {
+  font-family: Ubuntu;
+  font-size: 48px;
+  font-weight: 400;
+}
+h3 {
+  font-family: Ubuntu;
+  font-size: 36px;
+  font-weight: 400;
+}
+p,
+li {
+  font-family: Ubuntu;
+  font-size: 32px;
+  font-weight: 400;
+}
+
+/* Form */
+.form-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.form-block p {
+  text-align: center;
+}
+
+label span {
+  font-family: Ubuntu;
+  font-size: 5vw;
+  font-weight: 400;
+  display: flex;
+  justify-content: center;
+}
+input {
+  font-size: 4vw;
+  width: 51vw;
+  height: 7vh;
+}
+
+/* Journal */
+.pdf-block {
+  height: 1200px;
+}
+.journal-p {
+  font-family: Ubuntu;
+  font-size: 48px;
+  font-weight: 700;
+  text-align: center;
+}
+/* Store */
+
+.store-container {
+  margin-top: 51px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  /* column-gap: 5px; */
+  justify-items: center;
+  row-gap: 51px;
+}
+
+.store-card {
+  background-color: rgba(176, 176, 176, 0.239);
+  width: 33vw;
+  height: 90%;
+  display: flex;
+  flex-direction: column;
+  padding: 3vw;
+  border-radius: 20px;
+}
+.store-card li {
+  font-family: Ubuntu;
+  font-size: 3vw;
+  font-weight: 500;
+}
+
+.card-image img {
+  width: 33vw;
+  height: 300px;
+  border-radius: 20px;
+}
+
+/* Portfolio */
+.main-container {
+  padding: 4vw;
+}
+.title-block {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  gap: 10vw;
+}
+.title-block img {
+  max-width: 40vw;
+}
+.title-text {
+  width: 50vw;
+}
+.title-text h2 {
+  font-family: Ubuntu;
+  font-size: 4vw;
+  font-weight: 500;
+  text-align: center;
+}
+.title-text p {
+  font-family: Ubuntu;
+  font-size: 3vw;
+  font-weight: 400;
+  text-align: center;
+}
+
+/* .project-block {
+  margin-top: 100px;
+} */
+
+.project-block h2 {
+  font-family: Ubuntu;
+  font-size: 4vw;
+  font-weight: 700;
+  text-align: center;
+}
+.project-image {
+  text-align: center;
+}
+.project-image img {
+  width: 70vw;
+}
+
+/* Social */
+.social-container {
+  padding: 11vw 11vw 1vw;
+}
+.main-social-block {
+  display: flex;
+  justify-content: space-between;
+  text-align: center;
+}
+.main-social-block:first-child {
+  margin-bottom: 4vw;
+}
+.item-block {
+  width: 14.64vw;
+}
+
+.main-social-block img {
+  width: 100%;
+  height: 100%;
+  border-radius: 20px;
+}
+.social-text p {
+  font-family: Ubuntu;
+  font-size: 2.5vw;
+  font-weight: 400;
+  text-align: center;
+}
+/* Footer */
+.footer {
+  margin-top: 76px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.footer > span {
+  font-family: Ubuntu;
+  font-size: 32px;
+  font-weight: 400;
+  text-align: left;
+  color: rgb(255, 255, 255);
+}
+
+.social-block img {
+  margin-left: 10px;
+  width: 110px;
+  border-radius: 20px;
+}
+.footer-logo img {
+  width: 12vw;
+}
+
+@media (max-width: 1200px) {
+  .footer {
+    gap: 10px;
+    flex-direction: column;
+  }
+  .social-block img {
+    width: 9vw;
+  }
+}
+@media (max-width: 800px) {
+  .store-container {
+    display: flex;
+    flex-direction: column;
+  }
+  .store-card {
+    width: 90%;
+    height: 100%;
+    padding: 3vw;
+  }
+  .store-card li {
+    font-size: 25px;
+    font-weight: 500;
+  }
+
+  .card-image img {
+    width: 100%;
+    height: 100%;
+  }
+}
