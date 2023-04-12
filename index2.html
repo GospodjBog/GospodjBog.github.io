@@ -5,17 +5,59 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="style.css" />
-    <title>Saved projects</title>
+    <title>Соц-сети</title>
     <script src="main.js" defer></script>
   </head>
   <body>
     <header class="header">
-      <nav class="navigation">
+      <div class="switch-container">
+        <div class="switch">
+          <input id="switch-1" type="checkbox" class="switch-input" />
+          <label for="switch-1" class="switch-label">Switch</label>
+        </div>
+      </div>
+      <nav class="header-nav">
         <ul class="nav_list">
-          <li><a href="index.html">Главная</a></li>
+          <li>
+            <a href="index.html">Главная </a>
+          </li>
+          <li>
+            <a href="index2.html"><b>Соц-сети</b></a>
+          </li>
+          <li>
+            <div class="drop-block" id="drop-block">
+              <button class="drop-btn" id="drop-btn">Проекты</button>
+              <ul class="drop-list hidden" id="drop-list">
+                <a href="Restoraunt/index-rest.html" target="_blank"
+                  ><li>Ресторан</li></a
+                >
+                <a href="newjs/index.html" target="_blank"
+                  ><li>Конструктор</li></a
+                >
+                <a href="Velomaster/index.html" target="_blank"
+                  ><li>Velomaster</li></a
+                >
+              </ul>
+            </div>
+          </li>
         </ul>
       </nav>
     </header>
-    <h1>Привет, это страница #2.</h1>
+    <main class="main">
+      <nav class="left-nav">
+        <div class="colored-rect"></div>
+        <div class="container">
+          <li>
+            <a href="index.html">Главная</a>
+          </li>
+          <li>
+            <a href="index2.html"><b>Соц-сети</b></a>
+          </li>
+        </div>
+      </nav>
+      <article class="article"></article>
+      <aside class="aside"></aside>
+    </main>
+    <footer class="footer"><p>Footer</p></footer>
   </body>
 </html>
