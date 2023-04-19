@@ -366,3 +366,18 @@ th {
 .list li {
   margin-bottom: 10px;
 }
+
+@media (max-width: 600px) {
+  .hero_collection_block {
+    position: absolute;
+    height: 500px;
+    background-color: rgba(64, 64, 64, 0.419);
+    padding: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-content: flex-start;
+    gap: 10px;
+    overflow: auto;
+  }
+}
