@@ -369,7 +369,11 @@ th {
 
 @media (max-width: 600px) {
   .hero_collection_block {
+    margin: 10px;
     position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
     height: 500px;
     background-color: rgba(64, 64, 64, 0.419);
     padding: 20px;
@@ -378,6 +382,17 @@ th {
     justify-content: flex-start;
     align-content: flex-start;
     gap: 10px;
+    overflow: auto;
+  }
+  .hero_block {
+    margin: 10px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 500px;
+    background-color: rgba(64, 64, 64, 0.419);
+    padding: 20px;
     overflow: auto;
   }
 }
