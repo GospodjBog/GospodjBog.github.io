@@ -37,7 +37,7 @@ let dataObj = {};
 let heroArr = [];
 // let url = "../dragontail-12.6.1/12.6.1/data/ru_RU/champion.json";
 let url =
-  "http://ddragon.leagueoflegends.com/cdn/12.6.1/data/ru_RU/champion.json";
+  "https://ddragon.leagueoflegends.com/cdn/12.6.1/data/ru_RU/champion.json";
 
 fetch(url)
   .then((response) => response.json())
@@ -60,7 +60,7 @@ collectionBtn.addEventListener("click", () => {
     heroIcon.id = i;
 
     // heroIcon.src = `../dragontail-12.6.1/12.6.1/img/champion/${heroArr[i].image.full}`;
-    heroIcon.src = `http://ddragon.leagueoflegends.com/cdn/12.6.1/img/champion/${heroArr[i].image.full}`;
+    heroIcon.src = `https://ddragon.leagueoflegends.com/cdn/12.6.1/img/champion/${heroArr[i].image.full}`;
     heroCollection.append(heroIcon);
   }
 });
@@ -78,7 +78,7 @@ heroCollection.addEventListener("click", (e) => {
 
   let heroIcon = document.createElement("img");
   heroIcon.title = heroArr[id].name;
-  heroIcon.src = `http://ddragon.leagueoflegends.com/cdn/12.6.1/img/champion/${heroArr[id].image.full}`;
+  heroIcon.src = `https://ddragon.leagueoflegends.com/cdn/12.6.1/img/champion/${heroArr[id].image.full}`;
   heroBlock.append(heroIcon);
 
   let name = document.createElement("p");
