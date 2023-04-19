@@ -65,7 +65,7 @@ function calculateResist() {
     tableE.className = "table";
     tableE.innerHTML = theadE + tbodyE;
 
-    calcDiv.append(tableE);
+    bodyE.append(tableE);
 
     //   строка
     const conclusion = document.createElement("p");
