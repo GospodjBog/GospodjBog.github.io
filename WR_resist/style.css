@@ -1,0 +1,59 @@
+body {
+  margin: 10px;
+}
+.table {
+  border: 1px solid #eee;
+  table-layout: fixed;
+  min-width: 30%;
+  margin-bottom: 20px;
+}
+.table th {
+  font-weight: bold;
+  padding: 5px;
+  background: #efefef;
+  border: 1px solid #dddddd;
+}
+.table td {
+  padding: 3px 10px;
+  border: 1px solid #eee;
+  text-align: center;
+}
+.table tbody tr:nth-child(odd) {
+  background: #fff;
+}
+.table tbody tr:nth-child(even) {
+  background: #f7f7f7;
+}
+.table tbody td:nth-child(5) {
+  background-color: rgba(13, 255, 0, 0.516);
+}
+.table tbody td:nth-child(6) {
+  background-color: rgba(255, 0, 0, 0.479);
+}
+
+label {
+  display: flex;
+  width: 250px;
+  margin-bottom: 10px;
+  justify-content: space-between;
+}
+.labels {
+  padding: 10px;
+  display: inline-block;
+}
+input {
+  width: 70px;
+}
+
+.wrapper {
+  display: flex;
+  width: 100%;
+}
+
+.calculations {
+  min-width: 50%;
+}
+
+.result {
+  max-width: 50%;
+}
