@@ -12,6 +12,8 @@ body {
   padding: 5px;
 }
 
+/* INDEX */
+
 .login {
   display: flex;
   flex-direction: column;
@@ -293,7 +295,7 @@ body {
   width: 950px;
   height: 500px;
   background-color: rgba(64, 64, 64, 0.419);
-  padding: 20px;
+  padding: 30px 20px;
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-start;
@@ -332,6 +334,17 @@ body {
 
 .hero_block p {
   margin-bottom: 5px;
+}
+
+/* return btn */
+
+.return-btn {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  background-color: aliceblue;
+  width: 15px;
+  height: 15px;
 }
 
 /* ////////////////////// */

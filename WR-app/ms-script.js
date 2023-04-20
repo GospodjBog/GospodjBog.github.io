@@ -12,27 +12,6 @@ const heroCollection = document.querySelector(".hero_collection_block");
 const heroBlockModal = document.querySelector(".hero");
 const heroBlock = document.querySelector(".hero_block");
 
-function showModal(modalName) {
-  modalName.classList.remove("hidden");
-}
-
-function hideModal(modalName) {
-  modalName.classList.add("hidden");
-}
-
-profileBtn.addEventListener("click", () => {
-  showModal(profileModal);
-});
-for (const modal of modals) {
-  modal.addEventListener("click", (e) => {
-    if (e.target.matches(".modal")) {
-      modal.classList.add("hidden");
-    }
-  });
-}
-
-// hero collection block
-
 let dataObj = {};
 let heroArr = [];
 // let url = "../dragontail-12.6.1/12.6.1/data/ru_RU/champion.json";
@@ -43,10 +22,45 @@ fetch(url)
   .then((response) => response.json())
   .then((commits) => (dataObj = commits));
 
+function showModal(modalName) {
+  modalName.classList.remove("hidden");
+}
+
+function hideModal(modalName) {
+  modalName.classList.add("hidden");
+}
+
+function createReturnBtn(parent, hideParent, returnTo = null) {
+  const returnBtn = document.createElement("button");
+  returnBtn.className = "return-btn";
+  parent.append(returnBtn);
+
+  returnBtn.addEventListener("click", () => {
+    hideModal(hideParent);
+    if (!returnTo) return;
+    showModal(returnTo);
+  });
+}
+
+profileBtn.addEventListener("click", () => {
+  showModal(profileModal);
+});
+
+for (const modal of modals) {
+  modal.addEventListener("click", (e) => {
+    if (e.target.matches(".modal")) {
+      modal.classList.add("hidden");
+    }
+  });
+}
+
+// hero collection block
+
 collectionBtn.addEventListener("click", () => {
   showModal(collectionModal);
-  if (heroCollection.hasChildNodes()) return;
 
+  if (heroCollection.hasChildNodes()) return;
+  createReturnBtn(heroCollection, collectionModal);
   let champs = dataObj.data;
   for (let hero in champs) {
     heroArr.push(champs[hero]);
@@ -66,7 +80,6 @@ collectionBtn.addEventListener("click", () => {
 });
 
 heroCollection.addEventListener("click", (e) => {
-  console.log(e.target.id);
   if (e.target.className !== "hero-icon") return;
   hideModal(collectionModal);
 
@@ -76,19 +89,20 @@ heroCollection.addEventListener("click", (e) => {
 
   const id = e.target.id;
 
-  let heroIcon = document.createElement("img");
+  createReturnBtn(heroBlock, heroBlockModal, collectionModal);
+
+  const heroIcon = document.createElement("img");
   heroIcon.title = heroArr[id].name;
   heroIcon.src = `https://ddragon.leagueoflegends.com/cdn/12.6.1/img/champion/${heroArr[id].image.full}`;
   heroBlock.append(heroIcon);
 
-  let name = document.createElement("p");
-  name.textContent = `${heroArr[id].name}`;
-  heroBlock.append(name);
+  const heroName = document.createElement("p");
+  heroName.textContent = `${heroArr[id].name}`;
+  heroBlock.append(heroName);
 
   for (const prop in heroArr[id].stats) {
-    let stats = document.createElement("p");
+    const stats = document.createElement("p");
     stats.textContent = `${prop.toUpperCase()}: ${heroArr[id].stats[prop]}`;
     heroBlock.append(stats);
   }
 });
-// json
