@@ -68,22 +68,23 @@ collectionBtn.addEventListener("click", () => {
 
   for (let i = 0; i < heroArr.length; i++) {
     // сделать switch case для выбора роли чемпионов и их отображения
-    if (heroArr[i].role === "adc") {
-      // adc
-      let heroIcon = document.createElement("img");
+    // if (heroArr[i].role === "adc") {
+    // adc
+    let heroIcon = document.createElement("img");
 
-      heroIcon.className = "hero-icon";
-      heroIcon.title = heroArr[i].name;
-      heroIcon.id = heroArr[i].id;
-      heroIcon.id = i;
+    heroIcon.className = "hero-icon";
+    heroIcon.title = heroArr[i].name;
+    heroIcon.id = heroArr[i].id;
+    heroIcon.id = i;
 
-      // heroIcon.src = `../dragontail-12.6.1/12.6.1/img/champion/${heroArr[i].image.full}`;
-      heroIcon.src = `https://ddragon.leagueoflegends.com/cdn/12.6.1/img/champion/${heroArr[i].image.full}`;
-      heroCollection.append(heroIcon);
-    }
+    // heroIcon.src = `../dragontail-12.6.1/12.6.1/img/champion/${heroArr[i].image.full}`;
+    heroIcon.src = `https://ddragon.leagueoflegends.com/cdn/12.6.1/img/champion/${heroArr[i].image.full}`;
+    heroCollection.append(heroIcon);
+    // }
   }
 });
 
+// hero block
 heroCollection.addEventListener("click", function createHeroBlock(e) {
   if (e.target.className !== "hero-icon") return;
   hideModal(collectionModal);
@@ -95,6 +96,9 @@ heroCollection.addEventListener("click", function createHeroBlock(e) {
   const id = e.target.id;
 
   createReturnBtn(heroBlock, heroBlockModal, collectionModal);
+
+  const wrapper = document.createElement("div");
+  wrapper.className = "wrapper";
 
   const heroIcon = document.createElement("img");
   heroIcon.title = heroArr[id].name;
@@ -109,7 +113,7 @@ heroCollection.addEventListener("click", function createHeroBlock(e) {
 
   for (const prop in heroArr[id].stats) {
     const stats = document.createElement("p");
-    stats.textContent = `${prop.toUpperCase()}: ${heroArr[id].stats[prop]}`;
+    stats.textContent = `${prop.toUpperCase()}: ${heroArr[id].stats[prop][0]}`;
     heroBlock.append(stats);
   }
 });
