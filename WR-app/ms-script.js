@@ -14,9 +14,9 @@ const heroBlock = document.querySelector(".hero_block");
 
 let dataObj = {};
 let heroArr = [];
-// let url = "../dragontail-12.6.1/12.6.1/data/ru_RU/champion.json";
-let url =
-  "https://ddragon.leagueoflegends.com/cdn/12.6.1/data/ru_RU/champion.json";
+let url = "./champion.json";
+// let url =
+//   "https://ddragon.leagueoflegends.com/cdn/12.6.1/data/ru_RU/champion.json";
 
 fetch(url)
   .then((response) => response.json())
@@ -65,21 +65,26 @@ collectionBtn.addEventListener("click", () => {
   for (let hero in champs) {
     heroArr.push(champs[hero]);
   }
+
   for (let i = 0; i < heroArr.length; i++) {
-    let heroIcon = document.createElement("img");
+    // сделать switch case для выбора роли чемпионов и их отображения
+    if (heroArr[i].role === "adc") {
+      // adc
+      let heroIcon = document.createElement("img");
 
-    heroIcon.className = "hero-icon";
-    heroIcon.title = heroArr[i].name;
-    heroIcon.id = heroArr[i].id;
-    heroIcon.id = i;
+      heroIcon.className = "hero-icon";
+      heroIcon.title = heroArr[i].name;
+      heroIcon.id = heroArr[i].id;
+      heroIcon.id = i;
 
-    // heroIcon.src = `../dragontail-12.6.1/12.6.1/img/champion/${heroArr[i].image.full}`;
-    heroIcon.src = `https://ddragon.leagueoflegends.com/cdn/12.6.1/img/champion/${heroArr[i].image.full}`;
-    heroCollection.append(heroIcon);
+      // heroIcon.src = `../dragontail-12.6.1/12.6.1/img/champion/${heroArr[i].image.full}`;
+      heroIcon.src = `https://ddragon.leagueoflegends.com/cdn/12.6.1/img/champion/${heroArr[i].image.full}`;
+      heroCollection.append(heroIcon);
+    }
   }
 });
 
-heroCollection.addEventListener("click", (e) => {
+heroCollection.addEventListener("click", function createHeroBlock(e) {
   if (e.target.className !== "hero-icon") return;
   hideModal(collectionModal);
 
@@ -93,10 +98,12 @@ heroCollection.addEventListener("click", (e) => {
 
   const heroIcon = document.createElement("img");
   heroIcon.title = heroArr[id].name;
+  heroIcon.className = heroArr[id].id;
   heroIcon.src = `https://ddragon.leagueoflegends.com/cdn/12.6.1/img/champion/${heroArr[id].image.full}`;
   heroBlock.append(heroIcon);
 
-  const heroName = document.createElement("p");
+  const heroName = document.createElement("h2");
+  heroName.className = "hero-name";
   heroName.textContent = `${heroArr[id].name}`;
   heroBlock.append(heroName);
 

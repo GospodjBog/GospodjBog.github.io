@@ -8,7 +8,6 @@
 body {
   background-color: rgb(2, 0, 11);
   height: 100%;
-  padding: 5px;
 }
 
 /* INDEX */
@@ -286,13 +285,12 @@ body {
 }
 
 /* hero collection */
-
 .hero_collection_block {
   position: absolute;
-  left: calc(50% - 950px / 2);
-  top: calc(50% - 500px / 2);
-  width: 950px;
-  height: 500px;
+  left: calc(50% - 900px / 2);
+  top: calc(50% - 81vh / 2);
+  width: 900px;
+  height: 80vh;
   background-color: rgba(64, 64, 64, 0.419);
   padding: 30px 20px;
   display: flex;
@@ -321,18 +319,23 @@ body {
 
 .hero_block {
   position: absolute;
-  left: calc(50% - 1000px / 2);
-  top: calc(50% - 400px / 2);
-  width: 1000px;
-  height: 400px;
+  left: calc(50% - 900px / 2);
+  top: calc(50% - 81vh / 2);
+  width: 900px;
+  height: 80vh;
   background-color: rgba(64, 64, 64, 0.419);
   padding: 20px;
   color: white;
   overflow: auto;
 }
 
+.hero-name {
+  font-size: 50px;
+}
+
 .hero_block p {
   margin-bottom: 5px;
+  font-size: 15px;
 }
 
 /* return btn */
@@ -355,9 +358,9 @@ body {
     left: 0;
     top: 0;
     width: 100%;
-    height: 500px;
+    height: 90%;
     background-color: rgba(64, 64, 64, 0.419);
-    padding: 20px;
+    padding: 40px 20px 20px 20px;
     display: flex;
     flex-wrap: wrap;
     justify-content: flex-start;
@@ -366,12 +369,11 @@ body {
     overflow: auto;
   }
   .hero_block {
-    margin: 10px 0;
     position: absolute;
     left: 0;
     top: 0;
     width: 100%;
-    height: 500px;
+    height: 90%;
     background-color: rgba(64, 64, 64, 0.419);
     padding: 20px;
     overflow: auto;
