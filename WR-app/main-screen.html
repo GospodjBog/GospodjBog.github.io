@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="style.css" />
-    <script src="ms-script.js" defer></script>
+    <script src="ms-script.js" type="module" defer></script>
     <title>Main Screen</title>
   </head>
   <body>
@@ -19,36 +19,68 @@
       <main class="main"></main>
 
       <div class="prof modal hidden">
-        <div class="profile-block"></div>
+        <div class="profile-block block"></div>
       </div>
+
+      <!-- shop -->
+      <div class="shop modal hidden">
+        <div class="shop_block block"></div>
+      </div>
+
+      <!-- collection -->
       <div class="coll modal hidden">
-        <div class="hero_collection_block"></div>
+        <div class="hero_collection_block block"></div>
       </div>
       <div class="hero modal hidden">
-        <div class="hero_block"></div>
+        <div class="hero_block block"></div>
+      </div>
+
+      <!-- builds -->
+      <div class="build modal hidden">
+        <div class="builds_block block"></div>
+      </div>
+
+      <!-- statistics -->
+      <div class="stat modal hidden">
+        <div class="statistics_block block"></div>
+      </div>
+
+      <!-- storage -->
+      <div class="stor modal hidden">
+        <div class="storage_block block"></div>
+      </div>
+
+      <!-- quest -->
+      <div class="quest modal hidden">
+        <div class="quest_block block"></div>
+      </div>
+
+      <!-- guild -->
+      <div class="guild modal hidden">
+        <div class="guild_block block"></div>
       </div>
 
       <footer class="footer">
         <!-- <div class="play-btn"><img src="images/play-button.png" alt="" /></div> -->
-        <div class="store btn">
+        <div class="shop-btn btn">
           <img src="images/footer-btns/store-btn.png" alt="" />
         </div>
-        <div class="collection btn">
+        <div class="collection-btn btn">
           <img src="images/footer-btns/collection-btn.png" alt="" />
         </div>
-        <div class="builds btn">
+        <div class="builds-btn btn">
           <img src="images/footer-btns/builds-btn.png" alt="" />
         </div>
-        <div class="leaders btn">
+        <div class="statistics-btn btn">
           <img src="images/footer-btns/leaders-btn.png" alt="" />
         </div>
-        <div class="storage btn">
+        <div class="storage-btn btn">
           <img src="images/footer-btns/storage-btn.png" alt="" />
         </div>
-        <div class="quest btn">
+        <div class="quest-btn btn">
           <img src="images/footer-btns/quest-btn.png" alt="" />
         </div>
-        <div class="guild btn">
+        <div class="guild-btn btn">
           <img src="images/footer-btns/guild-btn.png" alt="" />
         </div>
       </footer>

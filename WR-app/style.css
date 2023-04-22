@@ -252,7 +252,6 @@ body {
   align-items: center;
 
   height: 65px;
-  /* padding-right: 200px; */
 
   border-top: 2px solid #b28460;
 
@@ -284,14 +283,19 @@ body {
   background-color: rgba(0, 0, 0, 0.171);
 }
 
-/* hero collection */
-.hero_collection_block {
+/* blocks */
+.block {
   position: absolute;
   left: calc(50% - 900px / 2);
   top: calc(50% - 81vh / 2);
   width: 900px;
   height: 80vh;
   background-color: rgba(64, 64, 64, 0.419);
+  border-radius: 5px;
+}
+
+/* hero collection */
+.hero_collection_block {
   padding: 30px 20px;
   display: flex;
   flex-wrap: wrap;
@@ -318,16 +322,9 @@ body {
 /* hero block */
 
 .hero_block {
-  position: absolute;
-  left: calc(50% - 900px / 2);
-  top: calc(50% - 81vh / 2);
-  width: 900px;
-  height: 80vh;
-  background-color: rgba(64, 64, 64, 0.419);
   padding: 20px;
   color: white;
   overflow: auto;
-  border-radius: 5px;
 }
 
 .hero-name,
@@ -358,18 +355,18 @@ body {
 
 .hero_block-wrapper {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr;
   text-align: center;
   justify-content: space-between;
   gap: 2px;
+  margin-bottom: 20px;
 }
 
+/* hero table */
 .hero_table-wrapper {
   display: flex;
   justify-content: center;
 }
-
-/* hero table */
 
 .table th,
 .table td,
@@ -390,24 +387,88 @@ body {
   background: #000000;
   border: 1px solid #dddddd;
 }
+.table td:first-child {
+  background: rgb(0, 0, 0);
+}
 .table td {
   padding: 3px 5px;
   border: 1px solid #eee;
   text-align: center;
 }
 .table tbody tr:nth-child(odd) {
-  background: rgb(143, 143, 143);
+  background: rgba(75, 75, 75, 0.835);
 }
 .table tbody tr:nth-child(even) {
-  background: #454545;
+  background: #323232c9;
+}
+
+/* statistics block */
+
+.statistics_block {
+  padding: 30px 10px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-content: flex-start;
+  gap: 10px;
+  overflow: auto;
+}
+
+.statistics_table-wrapper .table th,
+.statistics_table-wrapper .table td,
+.statistics_table-wrapper .table tr {
+  font-size: 12px;
+  overflow-wrap: break-word;
+}
+
+th {
+  width: 30%;
+}
+
+/* quest block */
+
+.quest_block {
+  padding: 30px 30px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-content: flex-start;
+  gap: 20px;
+  overflow: auto;
+}
+
+.summoner_title-wrapper {
+  box-shadow: 1px 1px 0px #999, 2px 2px 0px #999, 3px 3px 0px #999, 4px 4px 0px #999, 5px 5px 0px #999, 6px 6px 0px #999;
+  padding: 10px;
+  background: rgb(75, 148, 70);
+  border-radius: 10px;
+  width: 256px;
+  height: 264px;
+  cursor: pointer;
+}
+.summoner_title-wrapper:hover {
+  background: rgb(65, 188, 65);
+  transition: all 0.3s ease-in;
+}
+.summoner_title-wrapper:hover .summoner-icon {
+  filter: grayscale(1%);
+  transition: all 0.3s ease-in;
+}
+.summoner-icon {
+  filter: grayscale(50%);
+  border-radius: 5px;
+}
+
+.summoners_title-name {
+  font-size: 30px;
 }
 
 /* return btn */
 
 .return-btn {
   position: absolute;
-  right: 10px;
-  top: 10px;
+  left: 15px;
+  top: 20px;
   background-color: aliceblue;
   width: 15px;
   height: 15px;
@@ -415,26 +476,24 @@ body {
 
 /* ////////////////////// */
 
-@media (max-width: 1000px) {
-  .hero_collection_block {
-    margin: auto 0;
+@media (max-width: 900px) {
+  .block {
     position: absolute;
     left: 0;
     top: 0;
     width: 100%;
     height: 90%;
     background-color: rgba(64, 64, 64, 0.419);
+  }
+
+  .hero_collection_block {
+    margin: auto 0;
     padding: 40px 20px 20px 20px;
   }
   .hero_block {
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 90%;
-    background-color: rgba(64, 64, 64, 0.419);
     padding: 20px;
     overflow: auto;
+    background-position-x: center;
   }
 
   .hero-name {
@@ -458,6 +517,12 @@ body {
     font-size: 2vw;
     border-collapse: collapse;
     padding: 3px;
+  }
+
+  .statistics_table-wrapper .table th,
+  .statistics_table-wrapper .table td,
+  .statistics_table-wrapper .table tr {
+    font-size: 1vw;
   }
 
   .profile-btn {
