@@ -362,6 +362,10 @@ body {
   margin-bottom: 20px;
 }
 
+.hero_block-wrapper p {
+  cursor: help;
+}
+
 /* hero table */
 .hero_table-wrapper {
   display: flex;
@@ -380,6 +384,7 @@ body {
   table-layout: fixed;
   min-width: 30%;
   margin-bottom: 20px;
+  font-weight: bold;
 }
 .table th {
   font-weight: bold;
@@ -396,10 +401,10 @@ body {
   text-align: center;
 }
 .table tbody tr:nth-child(odd) {
-  background: rgba(75, 75, 75, 0.835);
+  background: rgba(47, 47, 47, 0.835);
 }
 .table tbody tr:nth-child(even) {
-  background: #323232c9;
+  background: #222222c9;
 }
 
 /* statistics block */
@@ -562,3 +567,10 @@ th {
     width: 70vw;
   }
 }
+
+/* Слайдер ) */
+/*.quest_block {
+  flex-wrap: wrap;
+  flex-direction: column;
+  justify-content: center;
+} */

@@ -41,9 +41,22 @@ for (let hero in champions.data) {
   heroArr.push(champions.data[hero]);
 }
 
-for (let hero in summoners) {
-  summonerArr.push(summoners[hero]);
+for (let spell in summoners) {
+  summonerArr.push(summoners[spell]);
 }
+
+const attrList = [
+  "Attack Damage",
+  "Health Points",
+  "Mana Points",
+  "Physical Resistance",
+  "Magical Resistance",
+  "Attack Speed",
+  "Critical Damage",
+  "Health Point Regeneration",
+  "Mana Point Regeneration",
+  "Movement Speed",
+];
 
 // перевод числа 90 в минуты:секунды (1:30)
 function getDecimalTime(value) {
@@ -118,7 +131,6 @@ collectionBtn.addEventListener("click", () => {
 });
 
 // hero block
-
 heroCollection.addEventListener("click", (e) => {
   if (e.target.className !== "hero-icon") return;
   hideModal(collectionModal);
@@ -139,12 +151,6 @@ heroCollection.addEventListener("click", (e) => {
     heroBlock.style.backgroundImage = `url(http://ddragon.leagueoflegends.com/cdn/img/champion/centered/${heroArr[id].id}_0.jpg)`;
     heroBlock.style.backgroundSize = "cover";
 
-    // const heroIcon = document.createElement("img");
-    // heroIcon.title = heroArr[id].name;
-    // heroIcon.className = heroArr[id].id;
-    // heroIcon.src = `https://ddragon.leagueoflegends.com/cdn/12.6.1/img/champion/${heroArr[id].image.full}`;
-    // wrapper.append(heroIcon);
-
     const heroName = document.createElement("h2");
     heroName.className = "hero-name";
     heroName.textContent = `${heroArr[id].name}`;
@@ -155,10 +161,14 @@ heroCollection.addEventListener("click", (e) => {
     lvlText.textContent = "Характеристики";
     heroBlock.append(lvlText);
 
+    let attrName = 0;
     for (const prop in heroArr[id].stats) {
       if (prop === "lvl" || heroArr[id].stats[prop][0] === 0) continue;
       const stats = document.createElement("p");
       stats.textContent = `${prop.toUpperCase()}: ${heroArr[id].stats[prop][0]}`;
+      stats.title = attrList[attrName];
+      attrName++;
+
       heroWrapper.append(stats);
     }
 
@@ -250,6 +260,40 @@ statisticsBtn.addEventListener("click", () => {
     tableE.childNodes[2].remove();
     tableWrapper.append(tableE);
     statisticsBlock.append(tableWrapper);
+
+    // Цветные ячейки в зависимости от числа
+    const rows = tableE.rows;
+    const numCols = rows[0].cells.length - 1;
+
+    for (let i = 1; i < rows.length; i++) {
+      let sum = 0;
+      let numArr = [];
+      const cells = rows[i].cells;
+      for (let j = 1; j < cells.length; j++) {
+        sum += Number(cells[j].innerHTML);
+        numArr.push(Number(cells[j].innerHTML));
+      }
+
+      const avg = sum / numCols;
+      const min = Math.min.apply(null, numArr);
+      const max = Math.max.apply(null, numArr);
+
+      for (let j = 1; j < cells.length; j++) {
+        const cell = cells[j];
+        const value = Number(cell.innerHTML);
+        if (value === max) {
+          cell.style.color = "GreenYellow";
+          cell.style.backgroundColor = "green";
+        } else if (value === min) {
+          cell.style.color = "red";
+          cell.style.backgroundColor = "Maroon";
+        } else if (value < avg) {
+          cell.style.color = "orange";
+        } else if (value > avg) {
+          cell.style.color = "YellowGreen";
+        }
+      }
+    }
   }
 });
 
