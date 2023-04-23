@@ -219,8 +219,13 @@ statisticsBtn.addEventListener("click", () => {
   showModal(statisticsModal);
   if (statisticsBlock.hasChildNodes()) return;
   createReturnBtn(statisticsBlock, statisticsModal);
-  createStatTable();
-  function createStatTable() {
+
+  // Создаем таблички по количеству уровней
+  for (let i = 0; i < 15; i++) {
+    createStatTable(i);
+  }
+  // Табличка всех характеристик героев по уровню
+  function createStatTable(lvl) {
     const tableE = document.createElement("table");
 
     // сделать конструктор таблиц для разных ролей
@@ -240,7 +245,7 @@ statisticsBtn.addEventListener("click", () => {
       if (stat === "lvl" || heroAttributes[stat][0] === 0) continue;
       tdE = `<td>${stat}</td>`;
       for (let i = 0; i < adcArr.length; i++) {
-        tdE += `<td>${adcArr[i].stats[stat][0]}</td>`;
+        tdE += `<td>${adcArr[i].stats[stat][lvl]}</td>`; // уровень героя
       }
 
       trE += `<tr>${tdE}</tr>`;
@@ -252,12 +257,16 @@ statisticsBtn.addEventListener("click", () => {
       thE += `<th>${adcArr[i].id}</th>`;
     }
 
+    const caption = document.createElement("caption");
+    caption.textContent = `${lvl + 1}`;
+
     const theadE = `<thead><tr>${thE}</tr></thead>`;
     const tbodyE = `<tbody>${trE}</tbody>`;
 
     tableE.className = "table";
     tableE.innerHTML = theadE + tbodyE;
     tableE.childNodes[2].remove();
+    tableE.append(caption);
     tableWrapper.append(tableE);
     statisticsBlock.append(tableWrapper);
 
@@ -373,6 +382,24 @@ questBtn.addEventListener("click", () => {
     tableE.childNodes[2].remove();
     tableWrapper.append(tableE);
     questBlock.append(tableWrapper);
+  }
+  const runesTitleWrapper = document.createElement("div");
+  runesTitleWrapper.className = "runes_title-wrapper";
+
+  for (let i = 0; i < heroArr.length; i++) {
+    // сделать switch case для выбора роли чемпионов и их отображения
+    if (heroArr[i].role === "adc") {
+      // adc
+
+      let heroIcon = document.createElement("img");
+      heroIcon.className = "hero-icon";
+      heroIcon.title = heroArr[i].name;
+      heroIcon.id = heroArr[i].id;
+      heroIcon.id = i;
+      heroIcon.src = `http://ddragon.leagueoflegends.com/cdn/img/champion/loading/${heroArr[i].id.split(" ").join("")}_0.jpg`;
+
+      heroCollection.append(heroIcon);
+    }
   }
 });
 
