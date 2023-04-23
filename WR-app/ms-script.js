@@ -383,24 +383,6 @@ questBtn.addEventListener("click", () => {
     tableWrapper.append(tableE);
     questBlock.append(tableWrapper);
   }
-  const runesTitleWrapper = document.createElement("div");
-  runesTitleWrapper.className = "runes_title-wrapper";
-
-  for (let i = 0; i < heroArr.length; i++) {
-    // сделать switch case для выбора роли чемпионов и их отображения
-    if (heroArr[i].role === "adc") {
-      // adc
-
-      let heroIcon = document.createElement("img");
-      heroIcon.className = "hero-icon";
-      heroIcon.title = heroArr[i].name;
-      heroIcon.id = heroArr[i].id;
-      heroIcon.id = i;
-      heroIcon.src = `http://ddragon.leagueoflegends.com/cdn/img/champion/loading/${heroArr[i].id.split(" ").join("")}_0.jpg`;
-
-      heroCollection.append(heroIcon);
-    }
-  }
 });
 
 // guild block

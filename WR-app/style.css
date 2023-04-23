@@ -468,6 +468,10 @@ th {
   font-size: 30px;
 }
 
+.summoner_table-wrapper .table {
+  width: 100%;
+}
+
 /* return btn */
 
 .return-btn {
