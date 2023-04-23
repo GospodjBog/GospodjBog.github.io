@@ -63,7 +63,7 @@ function getDecimalTime(value) {
   let min = Math.floor(value / 60);
   let sec = value % 60;
   if (sec < 10 || sec == 0) sec = `0${Math.floor(sec)}`;
-  return `${min}:${sec}`;
+  return `${min}:${Math.floor(sec)}`;
 }
 
 function showModal(modalName) {

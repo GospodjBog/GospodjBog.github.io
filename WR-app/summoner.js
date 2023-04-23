@@ -7,6 +7,7 @@ export let summoners = {
     cooldown: [120],
     reducedCooldown: [102],
     range: [1200],
+    absorbs: [100, 450],
     image: {
       full: "SummonerBarrier.png",
       sprite: "spell0.png",
