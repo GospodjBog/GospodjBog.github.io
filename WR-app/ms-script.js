@@ -128,6 +128,7 @@ collectionBtn.addEventListener("click", () => {
       let heroIcon = document.createElement("img");
       heroIcon.className = "hero-icon";
       heroIcon.title = heroArr[i].name;
+      heroIcon.id = i;
       heroIcon.src = `http://ddragon.leagueoflegends.com/cdn/img/champion/loading/${heroArr[i].id.split(" ").join("")}_0.jpg`;
 
       heroCollection.append(heroIcon);
@@ -321,8 +322,9 @@ questBtn.addEventListener("click", () => {
   showModal(questModal);
   if (questBlock.hasChildNodes()) return;
   createReturnBtn(questBlock, questModal);
-  createSummonersList();
   createStatTable();
+  createSummonersList();
+
   function createSummonersList() {
     for (let i = 0; i < summonerArr.length; i++) {
       const summonerTitleWrapper = document.createElement("div");

@@ -373,6 +373,10 @@ body {
   justify-content: center;
 }
 
+.hero_table-wrapper .table {
+  width: 100%;
+}
+
 .table th,
 .table td,
 .table tr {
@@ -443,18 +447,13 @@ th {
 }
 
 .summoner_title-wrapper {
-  box-shadow: 1px 1px 0px #999, 2px 2px 0px #999, 3px 3px 0px #999, 4px 4px 0px #999, 5px 5px 0px #999, 6px 6px 0px #999;
-  padding: 10px;
-  background: rgb(75, 148, 70);
+  padding: 10px 50px 10px 10px;
+  background-image: linear-gradient(90deg, #fffdcc, transparent);
   border-radius: 10px;
-  width: 256px;
-  height: 264px;
+  width: 100%;
   cursor: pointer;
 }
-.summoner_title-wrapper:hover {
-  background: rgb(65, 188, 65);
-  transition: all 0.3s ease-in;
-}
+
 .summoner_title-wrapper:hover .summoner-icon {
   filter: grayscale(1%);
   transition: all 0.3s ease-in;
@@ -478,8 +477,8 @@ th {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  align-content: space-around;
   overflow: auto;
+  gap: 20px;
 }
 
 .rune_title-wrapper {
@@ -515,6 +514,7 @@ th {
 .rune_title-name {
   font-size: 10px;
   text-align: center;
+  color: wheat;
 }
 
 /* return btn */
