@@ -472,6 +472,51 @@ th {
   width: 100%;
 }
 
+/* rune block */
+
+.rune_block {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-content: space-around;
+  overflow: auto;
+}
+
+.rune_title-wrapper {
+  display: flex;
+}
+.rune_title-wrapper:nth-child(2) img {
+  border: solid 2px rgba(64, 64, 64, 0.419);
+}
+.rune_title-wrapper:nth-child(3) img {
+  border: solid 2px rgb(187 13 13);
+}
+.rune_title-wrapper:nth-child(4) img {
+  border: solid 2px rgb(133 255 133);
+}
+.rune_title-wrapper:nth-child(5) img {
+  border: solid 2px rgb(55 246 255);
+}
+
+.rune-item {
+  width: 85px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.rune_block img {
+  width: 50px;
+  border-radius: 50%;
+  filter: drop-shadow(0px 6px 1px black);
+}
+
+.rune_title-name {
+  font-size: 10px;
+  text-align: center;
+}
+
 /* return btn */
 
 .return-btn {
@@ -530,6 +575,12 @@ th {
   .statistics_table-wrapper .table td,
   .statistics_table-wrapper .table tr {
     font-size: 1vw;
+  }
+
+  .rune_title-wrapper {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
   }
 
   .profile-btn {

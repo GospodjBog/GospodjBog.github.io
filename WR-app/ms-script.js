@@ -1,6 +1,7 @@
 "use strict";
 import { champions } from "./champion.js";
 import { summoners } from "./summoner.js";
+import { runes } from "./runes.js";
 
 const modals = document.querySelectorAll(".modal");
 const playBtn = document.querySelector(".play-btn");
@@ -31,11 +32,13 @@ const questBtn = document.querySelector(".quest-btn");
 const questModal = document.querySelector(".quest");
 const questBlock = document.querySelector(".quest_block");
 
-const guildBtn = document.querySelector(".guild-btn");
-const guildModal = document.querySelector(".guild");
+const runeBtn = document.querySelector(".rune-btn");
+const runeModal = document.querySelector(".rune");
+const runeBlock = document.querySelector(".rune_block");
 
-let heroArr = [];
-let summonerArr = [];
+const heroArr = [];
+const summonerArr = [];
+const runesArr = [];
 
 for (let hero in champions.data) {
   heroArr.push(champions.data[hero]);
@@ -43,6 +46,10 @@ for (let hero in champions.data) {
 
 for (let spell in summoners) {
   summonerArr.push(summoners[spell]);
+}
+
+for (const rune in runes) {
+  runesArr.push(runes[rune]);
 }
 
 const attrList = [
@@ -121,8 +128,6 @@ collectionBtn.addEventListener("click", () => {
       let heroIcon = document.createElement("img");
       heroIcon.className = "hero-icon";
       heroIcon.title = heroArr[i].name;
-      heroIcon.id = heroArr[i].id;
-      heroIcon.id = i;
       heroIcon.src = `http://ddragon.leagueoflegends.com/cdn/img/champion/loading/${heroArr[i].id.split(" ").join("")}_0.jpg`;
 
       heroCollection.append(heroIcon);
@@ -314,7 +319,6 @@ storageBtn.addEventListener("click", () => {
 // quest block
 questBtn.addEventListener("click", () => {
   showModal(questModal);
-
   if (questBlock.hasChildNodes()) return;
   createReturnBtn(questBlock, questModal);
   createSummonersList();
@@ -327,8 +331,6 @@ questBtn.addEventListener("click", () => {
       const summonerIcon = document.createElement("img");
       summonerIcon.className = "summoner-icon";
       summonerIcon.title = summonerArr[i].name;
-      summonerIcon.id = summonerArr[i].id;
-      summonerIcon.id = i;
       summonerIcon.src = `http://ddragon.leagueoflegends.com/cdn/13.8.1/img/spell/${summonerArr[i].image.full}`;
 
       const summonerName = document.createElement("p");
@@ -342,13 +344,9 @@ questBtn.addEventListener("click", () => {
       const summonerCooldown = document.createElement("p");
       summonerCooldown.textContent = `Кд: ${summonerArr[i].cooldown}s (${getDecimalTime(summonerArr[i].cooldown)})`;
 
-      // const reducedCooldown = document.createElement("p");
-      // reducedCooldown.textContent = `Кд: ${summonerArr[i].reducedCooldown}s (${getDecimalTime(summonerArr[i].reducedCooldown)}) -15%`;
-
       summonerTitleWrapper.append(summonerIcon);
       summonerTitleWrapper.append(summonerName);
       summonerTitleWrapper.append(summonerCooldown);
-      // summonerTitleWrapper.append(reducedCooldown);
       summonerTitleWrapper.append(summonerDescription);
 
       questBlock.append(summonerTitleWrapper);
@@ -385,7 +383,49 @@ questBtn.addEventListener("click", () => {
   }
 });
 
-// guild block
-guildBtn.addEventListener("click", () => {
-  showModal(guildModal);
+// rune block
+runeBtn.addEventListener("click", () => {
+  showModal(runeModal);
+  if (runeBlock.hasChildNodes()) return;
+  createReturnBtn(runeBlock, runeModal);
+
+  createRunesList("keystone");
+  createRunesList("domination");
+  createRunesList("resolve");
+  createRunesList("inspiration");
+
+  function createRunesList(runeTypeName) {
+    const runeTitleWrapper = document.createElement("div");
+    runeTitleWrapper.className = "rune_title-wrapper";
+
+    for (let i = 0; i < runesArr.length; i++) {
+      if (runesArr[i].typeName !== runeTypeName) continue;
+
+      const runeItem = document.createElement("div");
+      runeItem.className = "rune-item";
+
+      const runeIcon = document.createElement("img");
+      runeIcon.className = "rune-icon";
+      runeIcon.title = runesArr[i].name;
+      runeIcon.src = `images/runes/${runesArr[i].typeName}/${runesArr[i].icon}`;
+      console.log(`images/${runesArr[i].typeName}/${runesArr[i].icon}`);
+
+      const runeName = document.createElement("p");
+      runeName.className = "rune_title-name";
+      runeName.textContent = `${runesArr[i].name}`;
+
+      const runeDescription = document.createElement("p");
+      runeDescription.textContent = `${runesArr[i].description}`;
+
+      const runeCooldown = document.createElement("p");
+      runeCooldown.textContent = `Кд: ${runesArr[i].cooldown}s (${getDecimalTime(runesArr[i].cooldown)})`;
+      runeItem.append(runeIcon);
+      runeItem.append(runeName);
+      runeTitleWrapper.append(runeItem);
+      // runeTitleWrapper.append(summonerCooldown);
+      // runeTitleWrapper.append(summonerDescription);
+
+      runeBlock.append(runeTitleWrapper);
+    }
+  }
 });

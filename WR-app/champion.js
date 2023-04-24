@@ -1,4 +1,4 @@
-export let champions = {
+export const champions = {
   type: "champion",
   format: "standAloneComplex",
   version: "12.6.1",

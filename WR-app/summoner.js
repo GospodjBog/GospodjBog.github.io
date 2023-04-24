@@ -1,4 +1,4 @@
-export let summoners = {
+export const summoners = {
   SummonerBarrier: {
     id: "SummonerBarrier",
     name: "Барьер",
