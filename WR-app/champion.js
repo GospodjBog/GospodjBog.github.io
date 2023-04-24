@@ -144,6 +144,7 @@ export const champions = {
         ten$: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
       },
       role: "adc",
+      type: "range",
     },
     Alistar: {
       id: "Alistar",

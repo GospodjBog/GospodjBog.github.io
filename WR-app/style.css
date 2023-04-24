@@ -297,7 +297,70 @@ body {
   border-radius: 5px;
 }
 
-/* hero collection */
+/* shop block */
+
+.shop_block {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-content: flex-start;
+  gap: 10px;
+  overflow: auto;
+}
+
+.btn-wrapper {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-content: flex-start;
+}
+
+.sort-btn {
+  width: 50px;
+  font-size: 10px;
+}
+
+.item_block-wrapper {
+  padding: 20px 10px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-content: flex-start;
+  gap: 10px;
+  overflow: auto;
+}
+
+.item-wrapper {
+  width: 70px;
+  display: flex;
+  gap: 10px;
+  flex-direction: column;
+  align-items: center;
+}
+
+.item-icon {
+  border: 2px solid rgba(230, 167, 85, 0.807);
+  width: 70px;
+  filter: grayscale(20%);
+  cursor: pointer;
+  transition: all 0.1s ease-in;
+}
+
+.item-icon:hover {
+  transform: scale(1.12);
+  filter: grayscale(0);
+  filter: blur(10%);
+  filter: drop-shadow(0px 0px 5px rgba(0, 255, 0, 0.542));
+}
+
+.item-name {
+  font-size: 10px;
+  color: wheat;
+  text-align: center;
+}
+
+/* collection block */
 .hero_collection_block {
   display: flex;
   flex-wrap: wrap;
@@ -422,6 +485,10 @@ body {
   align-content: flex-start;
   gap: 10px;
   overflow: auto;
+}
+
+.statistics_table-wrapper .table th {
+  width: 100%;
 }
 
 .statistics_table-wrapper .table th,
@@ -575,6 +642,7 @@ th {
   .statistics_table-wrapper .table td,
   .statistics_table-wrapper .table tr {
     font-size: 1vw;
+    padding: 2px;
   }
 
   .rune_title-wrapper {

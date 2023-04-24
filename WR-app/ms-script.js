@@ -2,6 +2,7 @@
 import { champions } from "./champion.js";
 import { summoners } from "./summoner.js";
 import { runes } from "./runes.js";
+import { items } from "./items.js";
 
 const modals = document.querySelectorAll(".modal");
 const playBtn = document.querySelector(".play-btn");
@@ -11,13 +12,15 @@ const profileModal = document.querySelector(".prof");
 
 const shopBtn = document.querySelector(".shop-btn");
 const shopModal = document.querySelector(".shop");
+const shopBlock = document.querySelector(".shop_block");
 
 const buildsBtn = document.querySelector(".builds-btn");
-const buildsModal = document.querySelector(".build");
+const buildsModal = document.querySelector(".builds");
+const buildsBlock = document.querySelector(".builds_block");
 
 const collectionBtn = document.querySelector(".collection-btn");
 const collectionModal = document.querySelector(".coll");
-const heroCollection = document.querySelector(".hero_collection_block");
+const collectionBlock = document.querySelector(".hero_collection_block");
 const heroBlockModal = document.querySelector(".hero");
 const heroBlock = document.querySelector(".hero_block");
 
@@ -27,6 +30,7 @@ const statisticsBlock = document.querySelector(".statistics_block");
 
 const storageBtn = document.querySelector(".storage-btn");
 const storageModal = document.querySelector(".stor");
+const storageBlock = document.querySelector(".storage_block");
 
 const questBtn = document.querySelector(".quest-btn");
 const questModal = document.querySelector(".quest");
@@ -36,9 +40,12 @@ const runeBtn = document.querySelector(".rune-btn");
 const runeModal = document.querySelector(".rune");
 const runeBlock = document.querySelector(".rune_block");
 
+// Глобальные массивы и данные
+
 const heroArr = [];
 const summonerArr = [];
 const runesArr = [];
+const itemsArr = [];
 
 for (let hero in champions.data) {
   heroArr.push(champions.data[hero]);
@@ -50,6 +57,23 @@ for (let spell in summoners) {
 
 for (const rune in runes) {
   runesArr.push(runes[rune]);
+}
+
+for (const item in items.data) {
+  itemsArr.push(items.data[item]);
+}
+
+const itemsSet = new Set();
+for (let i = 0; i < itemsArr.length; i++) {
+  itemsSet.add(itemsArr[i].tags[0]);
+}
+
+for (const modal of modals) {
+  modal.addEventListener("click", (e) => {
+    if (e.target.matches(".modal")) {
+      modal.classList.add("hidden");
+    }
+  });
 }
 
 const attrList = [
@@ -65,12 +89,14 @@ const attrList = [
   "Movement Speed",
 ];
 
+// FUNCTIONS
+
 // перевод числа 90 в минуты:секунды (1:30)
 function getDecimalTime(value) {
   let min = Math.floor(value / 60);
-  let sec = value % 60;
+  let sec = (value % 60).toFixed();
   if (sec < 10 || sec == 0) sec = `0${Math.floor(sec)}`;
-  return `${min}:${Math.floor(sec)}`;
+  return `${min}:${sec}`;
 }
 
 function showModal(modalName) {
@@ -93,58 +119,89 @@ function createReturnBtn(parent, hideParent, returnTo = null) {
   });
 }
 
-// profileBtn.addEventListener("click", () => {
-//   showModal(profileModal);
-// });
-
-for (const modal of modals) {
-  modal.addEventListener("click", (e) => {
-    if (e.target.matches(".modal")) {
-      modal.classList.add("hidden");
-    }
-  });
-}
-
 // КНОПКИ И БЛОКИ
 
 // shop block
 shopBtn.addEventListener("click", () => {
   showModal(shopModal);
-  if (shopModal.hasChildNodes()) return;
+  if (shopBlock.hasChildNodes()) return;
+  createReturnBtn(shopBlock, shopModal);
+
+  const btnWrapper = document.createElement("div");
+  btnWrapper.className = "btn-wrapper";
+
+  const wrapper = document.createElement("div");
+  wrapper.className = "item_block-wrapper";
+
+  for (let value of itemsSet) {
+    const sortBtn = document.createElement("button");
+    sortBtn.className = "sort-btn";
+    sortBtn.id = `${value}`;
+    sortBtn.textContent = `${value.slice(0, 8)}`;
+
+    sortBtn.addEventListener("click", (e) => {
+      const itemWrapperRemover = document.querySelector(".item_block-wrapper");
+      itemWrapperRemover.innerHTML = "";
+      createItemsBlockList(e.target.id);
+    });
+
+    btnWrapper.append(sortBtn);
+    shopBlock.append(btnWrapper);
+  }
+
+  shopBlock.append(wrapper);
+
+  function createItemsBlockList(value) {
+    for (let i = 0; i < itemsArr.length; i++) {
+      if (itemsArr[i].tags[0] !== value) continue;
+      const itemWrapper = document.createElement("div");
+      itemWrapper.className = "item-wrapper";
+
+      const itemName = document.createElement("div");
+      itemName.className = "item-name";
+      itemName.textContent = `${itemsArr[i].name}`;
+
+      const itemIcon = document.createElement("img");
+      itemIcon.className = "item-icon";
+      itemIcon.title = itemsArr[i].name;
+      itemIcon.id = i;
+      itemIcon.src = `http://ddragon.leagueoflegends.com/cdn/13.8.1/img/item/${itemsArr[i].image.full}`;
+
+      itemWrapper.append(itemIcon);
+      itemWrapper.append(itemName);
+      wrapper.append(itemWrapper);
+    }
+  }
 });
 
 // hero collection block
 collectionBtn.addEventListener("click", () => {
   showModal(collectionModal);
-
-  if (heroCollection.hasChildNodes()) return;
-  createReturnBtn(heroCollection, collectionModal);
-
+  if (collectionBlock.hasChildNodes()) return;
+  createReturnBtn(collectionBlock, collectionModal);
   for (let i = 0; i < heroArr.length; i++) {
     // сделать switch case для выбора роли чемпионов и их отображения
     if (heroArr[i].role === "adc") {
       // adc
 
-      let heroIcon = document.createElement("img");
+      const heroIcon = document.createElement("img");
       heroIcon.className = "hero-icon";
       heroIcon.title = heroArr[i].name;
       heroIcon.id = i;
       heroIcon.src = `http://ddragon.leagueoflegends.com/cdn/img/champion/loading/${heroArr[i].id.split(" ").join("")}_0.jpg`;
 
-      heroCollection.append(heroIcon);
+      collectionBlock.append(heroIcon);
     }
   }
 });
 
 // hero block
-heroCollection.addEventListener("click", (e) => {
+collectionBlock.addEventListener("click", (e) => {
   if (e.target.className !== "hero-icon") return;
   hideModal(collectionModal);
   showModal(heroBlockModal);
   heroBlock.innerHTML = "";
   const id = e.target.id;
-
-  const mq = window.matchMedia("(max-width: 900px)");
 
   createReturnBtn(heroBlock, heroBlockModal, collectionModal);
   createFirstLayer();
@@ -218,6 +275,8 @@ heroCollection.addEventListener("click", (e) => {
 // builds block
 buildsBtn.addEventListener("click", () => {
   showModal(buildsModal);
+  if (buildsBlock.hasChildNodes()) return;
+  createReturnBtn(buildsBlock, buildsModal);
 });
 
 // statistics block
@@ -315,6 +374,8 @@ statisticsBtn.addEventListener("click", () => {
 // storage block
 storageBtn.addEventListener("click", () => {
   showModal(storageModal);
+  if (storageBlock.hasChildNodes()) return;
+  createReturnBtn(storageBlock, storageModal);
 });
 
 // quest block
@@ -356,7 +417,9 @@ questBtn.addEventListener("click", () => {
   }
   function createStatTable() {
     const tableE = document.createElement("table");
-    console.log(summonerArr);
+
+    const conclusions = document.createElement("p");
+    conclusions.textContent = "Диапазон кд заклинаний от 1:30(1:17) до 2:30(2:08).";
     // сделать конструктор таблиц для разных ролей
 
     let tdE;
@@ -380,7 +443,9 @@ questBtn.addEventListener("click", () => {
     tableE.className = "table";
     tableE.innerHTML = theadE + tbodyE;
     tableE.childNodes[2].remove();
+
     tableWrapper.append(tableE);
+    tableWrapper.append(conclusions);
     questBlock.append(tableWrapper);
   }
 });

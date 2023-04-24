@@ -9,8 +9,8 @@ export const runes = {
       damage: {
         type: "adaptive",
         flatDamage: [40, 194],
-        apMultiplier: [25],
-        adMultiplier: [40],
+        apMultiplier: [0.25],
+        adMultiplier: [0.4],
       },
     },
   },
