@@ -62,10 +62,12 @@ for (const rune in runes) {
 for (const item in items.data) {
   itemsArr.push(items.data[item]);
 }
-
+console.log(itemsArr);
 const itemsSet = new Set();
 for (let i = 0; i < itemsArr.length; i++) {
-  itemsSet.add(itemsArr[i].tags[0]);
+  for (let j = 0; j < itemsArr[i].tags.length; j++) {
+    itemsSet.add(itemsArr[i].tags[j]);
+  }
 }
 
 for (const modal of modals) {
@@ -137,7 +139,7 @@ shopBtn.addEventListener("click", () => {
     const sortBtn = document.createElement("button");
     sortBtn.className = "sort-btn";
     sortBtn.id = `${value}`;
-    sortBtn.textContent = `${value.slice(0, 8)}`;
+    sortBtn.textContent = `${value}`;
 
     sortBtn.addEventListener("click", (e) => {
       const itemWrapperRemover = document.querySelector(".item_block-wrapper");
@@ -149,27 +151,48 @@ shopBtn.addEventListener("click", () => {
     shopBlock.append(btnWrapper);
   }
 
+  for (let i = 0; i < itemsArr.length; i++) {
+    const itemWrapper = document.createElement("div");
+    itemWrapper.className = "item-wrapper";
+
+    const itemName = document.createElement("div");
+    itemName.className = "item-name";
+    itemName.textContent = `${itemsArr[i].name}`;
+
+    const itemIcon = document.createElement("img");
+    itemIcon.className = "item-icon";
+    itemIcon.title = itemsArr[i].name;
+    itemIcon.id = i;
+    itemIcon.src = `images/item/${itemsArr[i].image.full}`;
+
+    itemWrapper.append(itemIcon);
+    itemWrapper.append(itemName);
+    wrapper.append(itemWrapper);
+  }
+
   shopBlock.append(wrapper);
 
   function createItemsBlockList(value) {
     for (let i = 0; i < itemsArr.length; i++) {
-      if (itemsArr[i].tags[0] !== value) continue;
-      const itemWrapper = document.createElement("div");
-      itemWrapper.className = "item-wrapper";
+      for (let j = 0; j < itemsArr[i].tags.length; j++) {
+        if (itemsArr[i].tags[j] !== value) continue;
+        const itemWrapper = document.createElement("div");
+        itemWrapper.className = "item-wrapper";
 
-      const itemName = document.createElement("div");
-      itemName.className = "item-name";
-      itemName.textContent = `${itemsArr[i].name}`;
+        const itemName = document.createElement("div");
+        itemName.className = "item-name";
+        itemName.textContent = `${itemsArr[i].name}`;
 
-      const itemIcon = document.createElement("img");
-      itemIcon.className = "item-icon";
-      itemIcon.title = itemsArr[i].name;
-      itemIcon.id = i;
-      itemIcon.src = `http://ddragon.leagueoflegends.com/cdn/13.8.1/img/item/${itemsArr[i].image.full}`;
+        const itemIcon = document.createElement("img");
+        itemIcon.className = "item-icon";
+        itemIcon.title = itemsArr[i].name;
+        itemIcon.id = i;
+        itemIcon.src = `images/item/${itemsArr[i].image.full}`;
 
-      itemWrapper.append(itemIcon);
-      itemWrapper.append(itemName);
-      wrapper.append(itemWrapper);
+        itemWrapper.append(itemIcon);
+        itemWrapper.append(itemName);
+        wrapper.append(itemWrapper);
+      }
     }
   }
 });
