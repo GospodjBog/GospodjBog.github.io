@@ -46,6 +46,7 @@ const heroArr = [];
 const summonerArr = [];
 const runesArr = [];
 const itemsArr = [];
+const itemsSet = new Set();
 
 for (let hero in champions.data) {
   heroArr.push(champions.data[hero]);
@@ -62,8 +63,23 @@ for (const rune in runes) {
 for (const item in items.data) {
   itemsArr.push(items.data[item]);
 }
-console.log(itemsArr);
-const itemsSet = new Set();
+const iBoots = [];
+const iDefense = [];
+const iMagic = [];
+const iPhysical = [];
+for (let i = 0; i < itemsArr.length; i++) {
+  if (itemsArr[i].class === "boots") {
+    iBoots.push(itemsArr[i].name);
+  } else if (itemsArr[i].class === "defense") {
+    iDefense.push(itemsArr[i].name);
+  } else if (itemsArr[i].class === "magic") {
+    iMagic.push(itemsArr[i].name);
+  } else if (itemsArr[i].class === "physical") {
+    iPhysical.push(itemsArr[i].name);
+  }
+}
+console.log(iBoots, iDefense, iMagic, iPhysical);
+
 for (let i = 0; i < itemsArr.length; i++) {
   for (let j = 0; j < itemsArr[i].tags.length; j++) {
     itemsSet.add(itemsArr[i].tags[j]);
