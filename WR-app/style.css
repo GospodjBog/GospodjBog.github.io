@@ -321,6 +321,22 @@ body {
   font-size: 10px;
 }
 
+.item-select {
+  font-size: 16px;
+  color: #333;
+  padding: 8px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  background-color: #fff;
+}
+
+.item-select option {
+  font-size: 16px;
+  color: #333;
+  padding: 8px;
+  background-color: #fff;
+}
+
 .item_block-wrapper {
   padding: 20px 10px;
   display: flex;
@@ -331,12 +347,44 @@ body {
   overflow: auto;
 }
 
+.item_card-wrapper {
+  padding: 20px 10px;
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  align-content: flex-start;
+  gap: 10px;
+  overflow: auto;
+}
+
+.item_card-title {
+  font-weight: bold;
+  font-size: 25px;
+  padding: 2px 5px;
+  width: 100%;
+  color: wheat;
+  background: #8080804a;
+}
+
 .item-wrapper {
+  position: relative;
   width: 70px;
   display: flex;
   gap: 10px;
   flex-direction: column;
   align-items: center;
+}
+
+.item-price {
+  width: 94%;
+  font-size: 12px;
+  position: absolute;
+  color: #c4c4c4;
+  background-image: linear-gradient(1deg, black, #0000001a);
+  top: 53px;
+  z-index: 1;
+  text-align: center;
+  font-weight: bold;
 }
 
 .item-icon {

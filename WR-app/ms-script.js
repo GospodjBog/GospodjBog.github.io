@@ -48,11 +48,11 @@ const runesArr = [];
 const itemsArr = [];
 const itemsSet = new Set();
 
-for (let hero in champions.data) {
+for (const hero in champions.data) {
   heroArr.push(champions.data[hero]);
 }
 
-for (let spell in summoners) {
+for (const spell in summoners) {
   summonerArr.push(summoners[spell]);
 }
 
@@ -63,27 +63,47 @@ for (const rune in runes) {
 for (const item in items.data) {
   itemsArr.push(items.data[item]);
 }
-const iBoots = [];
-const iDefense = [];
-const iMagic = [];
-const iPhysical = [];
+const basicItems = [];
+const midTierItems = [];
+const upgradedItems = [];
+const enchantItems = [];
+const bootsItems = [];
+const defenseItems = [];
+const magicItems = [];
+const physicalItems = [];
+
 for (let i = 0; i < itemsArr.length; i++) {
-  if (itemsArr[i].class === "boots") {
-    iBoots.push(itemsArr[i].name);
-  } else if (itemsArr[i].class === "defense") {
-    iDefense.push(itemsArr[i].name);
-  } else if (itemsArr[i].class === "magic") {
-    iMagic.push(itemsArr[i].name);
-  } else if (itemsArr[i].class === "physical") {
-    iPhysical.push(itemsArr[i].name);
+  if (itemsArr[i].rarity === "basic") {
+    basicItems.push(itemsArr[i]);
+  } else if (itemsArr[i].rarity === "mid-tier") {
+    midTierItems.push(itemsArr[i]);
+  } else if (itemsArr[i].rarity === "upgraded") {
+    upgradedItems.push(itemsArr[i]);
+  } else if (itemsArr[i].rarity === "enchant") {
+    enchantItems.push(itemsArr[i]);
   }
 }
-console.log(iBoots, iDefense, iMagic, iPhysical);
+
+for (let i = 0; i < itemsArr.length; i++) {
+  if (itemsArr[i].class === "boots") {
+    bootsItems.push(itemsArr[i]);
+  } else if (itemsArr[i].class === "defense") {
+    defenseItems.push(itemsArr[i]);
+  } else if (itemsArr[i].class === "magic") {
+    magicItems.push(itemsArr[i]);
+  } else if (itemsArr[i].class === "physical") {
+    physicalItems.push(itemsArr[i]);
+  }
+}
 
 for (let i = 0; i < itemsArr.length; i++) {
   for (let j = 0; j < itemsArr[i].tags.length; j++) {
     itemsSet.add(itemsArr[i].tags[j]);
   }
+}
+
+for (let i = 0; i < defenseItems.length; i++) {
+  console.log(defenseItems[i].gold, [i]);
 }
 
 for (const modal of modals) {
@@ -106,6 +126,18 @@ const attrList = [
   "Mana Point Regeneration",
   "Movement Speed",
 ];
+
+const classItemsList = ["boots", "defense", "magic", "physical"];
+const rarityItemsList = ["upgraded", "mid-tier", "basic"];
+
+const sortedTotalGoldItems = [...itemsArr].sort((a, b) => b.gold.total - a.gold.total);
+console.log(sortedTotalGoldItems);
+
+const sortedBaseGoldItems = [...itemsArr].sort((a, b) => b.gold.base - a.gold.base);
+console.log(sortedBaseGoldItems);
+
+const sortedSellGoldItems = [...itemsArr].sort((a, b) => b.gold.sell - a.gold.sell);
+console.log(sortedSellGoldItems);
 
 // FUNCTIONS
 
@@ -145,26 +177,41 @@ shopBtn.addEventListener("click", () => {
   if (shopBlock.hasChildNodes()) return;
   createReturnBtn(shopBlock, shopModal);
 
+  const itemBlockWrapper = document.createElement("div");
+  itemBlockWrapper.className = "item_block-wrapper";
+
   const btnWrapper = document.createElement("div");
   btnWrapper.className = "btn-wrapper";
 
-  const wrapper = document.createElement("div");
-  wrapper.className = "item_block-wrapper";
+  const classBtnWrapper = document.createElement("div");
+  classBtnWrapper.className = "class-btn-wrapper";
+
+  const selectList = document.createElement("select");
+  selectList.className = "item-select";
 
   for (let value of itemsSet) {
-    const sortBtn = document.createElement("button");
-    sortBtn.className = "sort-btn";
-    sortBtn.id = `${value}`;
+    const sortBtn = document.createElement("option");
+    sortBtn.value = `${value}`;
     sortBtn.textContent = `${value}`;
 
-    sortBtn.addEventListener("click", (e) => {
-      const itemWrapperRemover = document.querySelector(".item_block-wrapper");
-      itemWrapperRemover.innerHTML = "";
-      createItemsBlockList(e.target.id);
-    });
+    selectList.append(sortBtn);
+  }
 
-    btnWrapper.append(sortBtn);
-    shopBlock.append(btnWrapper);
+  selectList.addEventListener("change", function (e) {
+    itemBlockWrapper.innerHTML = "";
+    createItemsSortList(e.target.value);
+  });
+
+  for (let i = 0; i < classItemsList.length; i++) {
+    const btn = document.createElement("button");
+    btn.textContent = classItemsList[i];
+    btn.className = "sort-btn";
+    btn.id = classItemsList[i];
+    btn.addEventListener("click", (e) => {
+      itemBlockWrapper.innerHTML = "";
+      createItemsBlock(e.target.id);
+    });
+    classBtnWrapper.append(btn);
   }
 
   for (let i = 0; i < itemsArr.length; i++) {
@@ -183,12 +230,62 @@ shopBtn.addEventListener("click", () => {
 
     itemWrapper.append(itemIcon);
     itemWrapper.append(itemName);
-    wrapper.append(itemWrapper);
+    itemBlockWrapper.append(itemWrapper);
   }
 
-  shopBlock.append(wrapper);
+  btnWrapper.append(classBtnWrapper);
+  shopBlock.append(selectList);
+  shopBlock.append(btnWrapper);
+  shopBlock.append(itemBlockWrapper);
 
-  function createItemsBlockList(value) {
+  function createItemsBlock(value) {
+    for (let j = 0; j < rarityItemsList.length; j++) {
+      const itemCardWrapper = document.createElement("div");
+      itemCardWrapper.className = "item_card-wrapper";
+
+      const itemCardTitle = document.createElement("div");
+      itemCardTitle.className = "item_card-title";
+      itemCardTitle.textContent = rarityItemsList[j][0].toUpperCase() + rarityItemsList[j].slice(1);
+
+      itemBlockWrapper.append(itemCardTitle);
+
+      for (let i = 0; i < sortedTotalGoldItems.length; i++) {
+        if (
+          sortedTotalGoldItems[i].rarity !== rarityItemsList[j] ||
+          sortedTotalGoldItems[i].class !== value ||
+          !sortedTotalGoldItems[i].gold.purchasable
+        )
+          continue;
+
+        const itemWrapper = document.createElement("div");
+        itemWrapper.className = "item-wrapper";
+
+        const itemName = document.createElement("div");
+        itemName.className = "item-name";
+        itemName.textContent = `${sortedTotalGoldItems[i].name}`;
+
+        const itemIcon = document.createElement("img");
+        itemIcon.className = "item-icon";
+        itemIcon.title = sortedTotalGoldItems[i].name;
+        itemIcon.id = i;
+        itemIcon.src = `images/item/${sortedTotalGoldItems[i].image.full}`;
+
+        const itemPrice = document.createElement("div");
+        itemPrice.className = "item-price";
+        itemPrice.textContent = `${sortedTotalGoldItems[i].gold.total}`;
+
+        itemWrapper.append(itemPrice);
+        itemWrapper.append(itemIcon);
+        itemWrapper.append(itemName);
+        itemCardWrapper.append(itemWrapper);
+        itemBlockWrapper.append(itemCardWrapper);
+      }
+    }
+
+    shopBlock.append(itemBlockWrapper);
+  }
+
+  function createItemsSortList(value) {
     for (let i = 0; i < itemsArr.length; i++) {
       for (let j = 0; j < itemsArr[i].tags.length; j++) {
         if (itemsArr[i].tags[j] !== value) continue;
@@ -207,7 +304,7 @@ shopBtn.addEventListener("click", () => {
 
         itemWrapper.append(itemIcon);
         itemWrapper.append(itemName);
-        wrapper.append(itemWrapper);
+        itemBlockWrapper.append(itemWrapper);
       }
     }
   }
@@ -514,7 +611,6 @@ runeBtn.addEventListener("click", () => {
       runeIcon.className = "rune-icon";
       runeIcon.title = runesArr[i].name;
       runeIcon.src = `images/runes/${runesArr[i].typeName}/${runesArr[i].icon}`;
-      console.log(`images/${runesArr[i].typeName}/${runesArr[i].icon}`);
 
       const runeName = document.createElement("p");
       runeName.className = "rune_title-name";
