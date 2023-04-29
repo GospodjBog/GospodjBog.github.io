@@ -63,38 +63,8 @@ for (const rune in runes) {
 for (const item in items.data) {
   itemsArr.push(items.data[item]);
 }
-const basicItems = [];
-const midTierItems = [];
-const upgradedItems = [];
-const enchantItems = [];
-const bootsItems = [];
-const defenseItems = [];
-const magicItems = [];
-const physicalItems = [];
 
-for (let i = 0; i < itemsArr.length; i++) {
-  if (itemsArr[i].rarity === "basic") {
-    basicItems.push(itemsArr[i]);
-  } else if (itemsArr[i].rarity === "mid-tier") {
-    midTierItems.push(itemsArr[i]);
-  } else if (itemsArr[i].rarity === "upgraded") {
-    upgradedItems.push(itemsArr[i]);
-  } else if (itemsArr[i].rarity === "enchant") {
-    enchantItems.push(itemsArr[i]);
-  }
-}
-
-for (let i = 0; i < itemsArr.length; i++) {
-  if (itemsArr[i].class === "boots") {
-    bootsItems.push(itemsArr[i]);
-  } else if (itemsArr[i].class === "defense") {
-    defenseItems.push(itemsArr[i]);
-  } else if (itemsArr[i].class === "magic") {
-    magicItems.push(itemsArr[i]);
-  } else if (itemsArr[i].class === "physical") {
-    physicalItems.push(itemsArr[i]);
-  }
-}
+// Предметы
 
 for (let i = 0; i < itemsArr.length; i++) {
   for (let j = 0; j < itemsArr[i].tags.length; j++) {
@@ -102,10 +72,12 @@ for (let i = 0; i < itemsArr.length; i++) {
   }
 }
 
-for (let i = 0; i < defenseItems.length; i++) {
-  console.log(defenseItems[i].gold, [i]);
-}
+const classItemsList = ["boots", "defense", "magic", "physical"];
+const rarityItemsList = ["upgraded", "mid-tier", "basic"];
 
+const sortedTotalGoldItems = [...itemsArr].sort((a, b) => b.gold.total - a.gold.total);
+
+// модальные окна
 for (const modal of modals) {
   modal.addEventListener("click", (e) => {
     if (e.target.matches(".modal")) {
@@ -126,18 +98,6 @@ const attrList = [
   "Mana Point Regeneration",
   "Movement Speed",
 ];
-
-const classItemsList = ["boots", "defense", "magic", "physical"];
-const rarityItemsList = ["upgraded", "mid-tier", "basic"];
-
-const sortedTotalGoldItems = [...itemsArr].sort((a, b) => b.gold.total - a.gold.total);
-console.log(sortedTotalGoldItems);
-
-const sortedBaseGoldItems = [...itemsArr].sort((a, b) => b.gold.base - a.gold.base);
-console.log(sortedBaseGoldItems);
-
-const sortedSellGoldItems = [...itemsArr].sort((a, b) => b.gold.sell - a.gold.sell);
-console.log(sortedSellGoldItems);
 
 // FUNCTIONS
 
@@ -167,6 +127,85 @@ function createReturnBtn(parent, hideParent, returnTo = null) {
     if (!returnTo) return;
     showModal(returnTo);
   });
+}
+
+function showTooltips(wrapper, arr, i) {
+  let tooltip;
+
+  wrapper.addEventListener("mouseover", (e) => {
+    let anchorElem = e.target.closest("[data-tooltip]");
+
+    if (!anchorElem) return;
+
+    tooltip = showTooltip(anchorElem, anchorElem.id);
+  });
+
+  wrapper.addEventListener("mouseout", () => {
+    if (tooltip) {
+      tooltip.remove();
+      tooltip = false;
+    }
+  });
+
+  function showTooltip(anchorElem, html) {
+    let tooltipElem = document.createElement("div");
+    tooltipElem.className = "tooltip";
+    tooltipElem.innerHTML = html;
+
+    const itemName = document.createElement("div");
+    itemName.className = "item-name";
+    itemName.textContent = `${sortedTotalGoldItems[i].name}`;
+    tooltipElem.append(itemName);
+
+    // const itemDescription = document.createElement("div");
+    // itemDescription.className = "item-description";
+    // itemDescription.innerHTML = `${sortedTotalGoldItems[i].description}`;
+    // tooltipElem.append(itemDescription);
+
+    const statTitle = document.createElement("p");
+    statTitle.className = "item-description";
+    statTitle.innerHTML = `Stats`;
+    tooltipElem.append(statTitle);
+
+    for (const stat in arr[i].stats) {
+      let text = document.createElement("p");
+      text.className = "tooltip-stats-text";
+      text.textContent = `${stat}: ${arr[i].stats[stat]}`;
+      tooltipElem.append(text);
+    }
+
+    // if (arr[i].passive) {
+    //   const passiveTitle = document.createElement("p");
+    //   passiveTitle.className = "item-description";
+    //   passiveTitle.innerHTML = `Passive`;
+    //   tooltipElem.append(passiveTitle);
+
+    //   for (const stat in arr[i].passive) {
+    //     let text = document.createElement("p");
+    //     text.className = "tooltip-stats-text";
+    //     text.textContent = `${stat}: ${arr[i].passive[stat]}`;
+    //     tooltipElem.append(text);
+    //   }
+    // }
+
+    document.body.append(tooltipElem);
+
+    let coords = anchorElem.getBoundingClientRect();
+
+    // позиционируем подсказку над центром элемента
+    let left = coords.left + (anchorElem.offsetWidth - tooltipElem.offsetWidth) / 2;
+    if (left < 0) left = 0;
+
+    let top = coords.top - tooltipElem.offsetHeight - 5;
+    if (top < 0) {
+      top = coords.top + anchorElem.offsetHeight + 5;
+    }
+
+    tooltipElem.style.left = left + "px";
+    tooltipElem.style.top = top + "px";
+
+    return tooltipElem;
+  }
 }
 
 // КНОПКИ И БЛОКИ
@@ -199,7 +238,7 @@ shopBtn.addEventListener("click", () => {
 
   selectList.addEventListener("change", function (e) {
     itemBlockWrapper.innerHTML = "";
-    createItemsSortList(e.target.value);
+    createTagItems(e.target.value);
   });
 
   for (let i = 0; i < classItemsList.length; i++) {
@@ -209,28 +248,13 @@ shopBtn.addEventListener("click", () => {
     btn.id = classItemsList[i];
     btn.addEventListener("click", (e) => {
       itemBlockWrapper.innerHTML = "";
-      createItemsBlock(e.target.id);
+      createClassItems(e.target.id);
     });
     classBtnWrapper.append(btn);
   }
 
-  for (let i = 0; i < itemsArr.length; i++) {
-    const itemWrapper = document.createElement("div");
-    itemWrapper.className = "item-wrapper";
-
-    const itemName = document.createElement("div");
-    itemName.className = "item-name";
-    itemName.textContent = `${itemsArr[i].name}`;
-
-    const itemIcon = document.createElement("img");
-    itemIcon.className = "item-icon";
-    itemIcon.title = itemsArr[i].name;
-    itemIcon.id = i;
-    itemIcon.src = `images/item/${itemsArr[i].image.full}`;
-
-    itemWrapper.append(itemIcon);
-    itemWrapper.append(itemName);
-    itemBlockWrapper.append(itemWrapper);
+  for (let i = 0; i < sortedTotalGoldItems.length; i++) {
+    createItemsCards(sortedTotalGoldItems, itemBlockWrapper, i);
   }
 
   btnWrapper.append(classBtnWrapper);
@@ -238,7 +262,7 @@ shopBtn.addEventListener("click", () => {
   shopBlock.append(btnWrapper);
   shopBlock.append(itemBlockWrapper);
 
-  function createItemsBlock(value) {
+  function createClassItems(value) {
     for (let j = 0; j < rarityItemsList.length; j++) {
       const itemCardWrapper = document.createElement("div");
       itemCardWrapper.className = "item_card-wrapper";
@@ -257,27 +281,7 @@ shopBtn.addEventListener("click", () => {
         )
           continue;
 
-        const itemWrapper = document.createElement("div");
-        itemWrapper.className = "item-wrapper";
-
-        const itemName = document.createElement("div");
-        itemName.className = "item-name";
-        itemName.textContent = `${sortedTotalGoldItems[i].name}`;
-
-        const itemIcon = document.createElement("img");
-        itemIcon.className = "item-icon";
-        itemIcon.title = sortedTotalGoldItems[i].name;
-        itemIcon.id = i;
-        itemIcon.src = `images/item/${sortedTotalGoldItems[i].image.full}`;
-
-        const itemPrice = document.createElement("div");
-        itemPrice.className = "item-price";
-        itemPrice.textContent = `${sortedTotalGoldItems[i].gold.total}`;
-
-        itemWrapper.append(itemPrice);
-        itemWrapper.append(itemIcon);
-        itemWrapper.append(itemName);
-        itemCardWrapper.append(itemWrapper);
+        createItemsCards(sortedTotalGoldItems, itemCardWrapper, i);
         itemBlockWrapper.append(itemCardWrapper);
       }
     }
@@ -285,28 +289,35 @@ shopBtn.addEventListener("click", () => {
     shopBlock.append(itemBlockWrapper);
   }
 
-  function createItemsSortList(value) {
-    for (let i = 0; i < itemsArr.length; i++) {
-      for (let j = 0; j < itemsArr[i].tags.length; j++) {
-        if (itemsArr[i].tags[j] !== value) continue;
-        const itemWrapper = document.createElement("div");
-        itemWrapper.className = "item-wrapper";
-
-        const itemName = document.createElement("div");
-        itemName.className = "item-name";
-        itemName.textContent = `${itemsArr[i].name}`;
-
-        const itemIcon = document.createElement("img");
-        itemIcon.className = "item-icon";
-        itemIcon.title = itemsArr[i].name;
-        itemIcon.id = i;
-        itemIcon.src = `images/item/${itemsArr[i].image.full}`;
-
-        itemWrapper.append(itemIcon);
-        itemWrapper.append(itemName);
-        itemBlockWrapper.append(itemWrapper);
+  function createTagItems(value) {
+    for (let i = 0; i < sortedTotalGoldItems.length; i++) {
+      for (let j = 0; j < sortedTotalGoldItems[i].tags.length; j++) {
+        if (sortedTotalGoldItems[i].tags[j] !== value) continue;
+        createItemsCards(sortedTotalGoldItems, itemBlockWrapper, i);
       }
     }
+  }
+
+  // Блок предметов с картинкой и всплывающим окном
+  function createItemsCards(array, block, i) {
+    const itemWrapper = document.createElement("div");
+    itemWrapper.className = "item-wrapper";
+    itemWrapper.dataset.tooltip = array[i].name;
+
+    const itemIcon = document.createElement("img");
+    itemIcon.className = "item-icon";
+    itemIcon.id = i;
+    itemIcon.src = `images/item/${array[i].image.full}`;
+
+    const itemPrice = document.createElement("div");
+    itemPrice.className = "item-price";
+    itemPrice.textContent = `${array[i].gold.total}`;
+
+    showTooltips(itemWrapper, array, i);
+
+    itemWrapper.append(itemPrice);
+    itemWrapper.append(itemIcon);
+    block.append(itemWrapper);
   }
 });
 
@@ -317,17 +328,26 @@ collectionBtn.addEventListener("click", () => {
   createReturnBtn(collectionBlock, collectionModal);
   for (let i = 0; i < heroArr.length; i++) {
     // сделать switch case для выбора роли чемпионов и их отображения
-    if (heroArr[i].role === "adc") {
-      // adc
+    // if (heroArr[i].role === "adc") {
+    // adc
+    const heroIconWrapper = document.createElement("div");
+    heroIconWrapper.className = "hero-icon-wrapper";
 
-      const heroIcon = document.createElement("img");
-      heroIcon.className = "hero-icon";
-      heroIcon.title = heroArr[i].name;
-      heroIcon.id = i;
-      heroIcon.src = `http://ddragon.leagueoflegends.com/cdn/img/champion/loading/${heroArr[i].id.split(" ").join("")}_0.jpg`;
+    const heroName = document.createElement("div");
+    heroName.className = "hero-icon-name";
+    heroName.textContent = heroArr[i].name;
 
-      collectionBlock.append(heroIcon);
-    }
+    const heroIcon = document.createElement("img");
+    heroIcon.className = "hero-icon";
+    heroIcon.title = heroArr[i].name;
+    heroIcon.id = i;
+    heroIcon.src = `http://ddragon.leagueoflegends.com/cdn/img/champion/loading/${heroArr[i].id.split(" ").join("")}_0.jpg`;
+
+    heroIconWrapper.append(heroName);
+    heroIconWrapper.append(heroIcon);
+    collectionBlock.append(heroIconWrapper);
+
+    // }
   }
 });
 
@@ -342,7 +362,9 @@ collectionBlock.addEventListener("click", (e) => {
   createReturnBtn(heroBlock, heroBlockModal, collectionModal);
   createFirstLayer();
   if (heroArr[id].stats.armor) return;
+  createSkillLayer();
   createHeroAttrTable();
+
   function createFirstLayer() {
     const heroWrapper = document.createElement("div");
     heroWrapper.className = "hero_block-wrapper";
@@ -405,6 +427,28 @@ collectionBlock.addEventListener("click", (e) => {
     tableE.childNodes[2].remove();
     tableWrapper.append(tableE);
     heroBlock.append(tableWrapper);
+  }
+  function createSkillLayer() {
+    const skillWrapper = document.createElement("div");
+    skillWrapper.className = "hero_block-skill-wrapper";
+
+    const skillIcon = document.createElement("img");
+    skillIcon.className = "skill-icon";
+    skillIcon.id = id;
+    skillIcon.src = `http://ddragon.leagueoflegends.com/cdn/13.8.1/img/passive/${heroArr[id].id.split(" ").join("")}_Passive.png`;
+    skillWrapper.append(skillIcon);
+
+    let skillArr = ["Q", "W", "E", "R"];
+
+    for (let i = 0; i < skillArr.length; i++) {
+      const skillIcon = document.createElement("img");
+      skillIcon.className = "skill-icon";
+      skillIcon.id = id;
+      skillIcon.src = `http://ddragon.leagueoflegends.com/cdn/13.8.1/img/spell/${heroArr[id].id.split(" ").join("")}${skillArr[i]}.png`;
+      skillWrapper.append(skillIcon);
+    }
+
+    heroBlock.append(skillWrapper);
   }
 });
 
