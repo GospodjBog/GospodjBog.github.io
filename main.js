@@ -3,7 +3,13 @@ const dropList = document.getElementById("drop-list");
 const switchTheme = document.getElementById("switch-1");
 const storage = window.localStorage
 
-storage.getItem("theme")
+if (storage.getItem("theme") == "white") {
+    document.body.style.backgroundColor = "white";
+    document.body.style.color = "black";
+  } else {
+    document.body.style.backgroundColor = "black";
+    document.body.style.color = "white";
+  }
 
 dropBtn.addEventListener("click", () => {
   dropList.classList.toggle("hidden");
